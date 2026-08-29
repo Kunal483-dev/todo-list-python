@@ -12,6 +12,11 @@ while True:
     if choice == "1":
         task = input("Enter your task: ")
         tasks.append(task)
+
+        file = open("tasks.txt", "a")
+        file.write(task + "\n")
+        file.close()
+
         print("Task added successfully!")
 
     elif choice == "2":
@@ -31,9 +36,12 @@ while True:
                 print(i, task)
 
             task_number = int(input("Enter task number to remove: "))
-            removed_task = tasks.pop(task_number - 1)
 
-            print("Removed:", removed_task)
+            if 1 <= task_number <= len(tasks):
+                removed_task = tasks.pop(task_number - 1)
+                print("Removed:", removed_task)
+            else:
+                print("Invalid task number!")
 
     elif choice == "4":
         print("Goodbye!")
