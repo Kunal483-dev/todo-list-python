@@ -1,5 +1,14 @@
 tasks = []
 
+# Load tasks from file
+file = open("tasks.txt", "r")
+
+for line in file:
+    tasks.append(line.strip())
+
+file.close()
+
+
 while True:
     print("\n===== TO-DO LIST =====")
     print("1. Add Task")
@@ -35,10 +44,22 @@ while True:
             for i, task in enumerate(tasks, start=1):
                 print(i, task)
 
-            task_number = int(input("Enter task number to remove: "))
+            try:
+                task_number = int(input("Enter task number to remove: "))
+            except ValueError:
+                print("Please enter a valid number!")
+                continue
 
             if 1 <= task_number <= len(tasks):
                 removed_task = tasks.pop(task_number - 1)
+
+                file = open("tasks.txt", "w")
+
+                for task in tasks:
+                    file.write(task + "\n")
+
+                file.close()
+
                 print("Removed:", removed_task)
             else:
                 print("Invalid task number!")
